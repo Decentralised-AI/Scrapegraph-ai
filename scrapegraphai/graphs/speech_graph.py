@@ -17,7 +17,8 @@ from .abstract_graph import AbstractGraph
 
 class SpeechGraph(AbstractGraph):
     """
-    SpeechyGraph is a scraping pipeline that scrapes the web, provide an answer to a given prompt, and generate an audio file.
+    SpeechyGraph is a scraping pipeline that scrapes the web, 
+    provide an answer to a given prompt, and generate an audio file.
 
     Attributes:
         prompt (str): The prompt for the graph.
@@ -113,16 +114,16 @@ class SpeechGraph(AbstractGraph):
             entry_point=fetch_node
         )
 
-    def run(self) -> str:
+    async def run(self) -> str:
         """
-        Executes the scraping process and returns the answer to the prompt.
+        Asynchronusly executes the scraping process and returns the answer to the prompt.
 
         Returns:
             str: The answer to the prompt.
         """
-        
+
         inputs = {"user_prompt": self.prompt, self.input_key: self.source}
-        self.final_state, self.execution_info = self.graph.execute(inputs)
+        self.final_state, self.execution_info = await self.graph.execute(inputs)
 
         audio = self.final_state.get("audio", None)
         if not audio:

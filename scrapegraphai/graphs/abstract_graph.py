@@ -69,7 +69,7 @@ class AbstractGraph(ABC):
                 self.model_token = models_tokens["azure"][llm.model_name]
             except KeyError:
                 raise KeyError("Model not supported")
-                
+
         elif 'HuggingFaceEndpoint' in str(type(llm)):
             if 'mistral' in llm.repo_id:
                 try:
@@ -229,7 +229,7 @@ class AbstractGraph(ABC):
 
         if 'model_instance' in embedder_config:
             return embedder_config['model_instance']
-        
+
         # Instantiate the embedding model based on the model name
         if "openai" in embedder_config["model"]:
             return OpenAIEmbeddings(api_key=embedder_config["api_key"])
@@ -296,7 +296,7 @@ class AbstractGraph(ABC):
         pass
 
     @abstractmethod
-    def run(self) -> str:
+    async def run(self) -> str:
         """
         Abstract method to execute the graph and return the result.
         """

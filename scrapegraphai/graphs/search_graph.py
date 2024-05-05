@@ -105,15 +105,14 @@ class SearchGraph(AbstractGraph):
             entry_point=search_internet_node
         )
 
-    def run(self) -> str:
+    async def run(self) -> str:
         """
-        Executes the web scraping and searching process.
-        
+        Asynchronously executes the web scraping and searching process.
+
         Returns:
             str: The answer to the prompt.
         """
-        
         inputs = {"user_prompt": self.prompt}
-        self.final_state, self.execution_info = self.graph.execute(inputs)
+        self.final_state, self.execution_info = await self.graph.execute(inputs)
 
         return self.final_state.get("answer", "No answer found.")
